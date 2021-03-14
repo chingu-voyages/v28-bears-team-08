@@ -5,7 +5,7 @@ export interface Message {
     from: unknown;
     to: unknown;
     request: String;
-    response: Promise<any>;
+    // response: Promise<any>;
 }
 
 export interface Response extends Message {
