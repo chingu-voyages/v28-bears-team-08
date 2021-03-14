@@ -1,7 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
+
 import './App.css';
-import {driver} from "./UIDriver";
+import {UIDriver} from "./Messaging";
+
+const driver = UIDriver.getInstance;
 
 function App() {
   return (

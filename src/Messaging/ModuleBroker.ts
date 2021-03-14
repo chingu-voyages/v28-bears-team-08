@@ -2,24 +2,19 @@ import {Subject} from "rxjs";
 
 import {IController} from "../Core";
 
-import {BrokerMessage} from "./";
-
-interface Broker {
-    publish(msg: BrokerMessage): void;
-
-    subscribe(): void;
-}
+import {BrokerMessage, Message} from "./";
+import {Broker} from "./Broker";
 
 export class ModuleBroker implements Broker {
     private static instance: ModuleBroker;
-    private moduleSubject: Subject<BrokerMessage>;
-    private controllerSubject: Subject<BrokerMessage>;
+    private moduleSubject: Subject<Message>;
+    private controllerSubject: Subject<Message>;
     private controller: IController;
 
 
     private constructor(core: IController) {
-        this.moduleSubject = new Subject<BrokerMessage>();
-        this.controllerSubject = new Subject<BrokerMessage>();
+        this.moduleSubject = new Subject<Message>();
+        this.controllerSubject = new Subject<Message>();
         this.controller = core;
         this.moduleSubject.subscribe(core)
     }

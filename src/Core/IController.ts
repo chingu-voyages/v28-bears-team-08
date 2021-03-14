@@ -8,8 +8,8 @@ import {ModuleBroker} from "../Messaging";
 import {View, DataModel} from "../Modules";
 
 
-export interface IController extends Observer<BrokerMessage>{
-    broker: ModuleBroker;
+export interface IController extends Observer<Message>{
+    modBroker: ModuleBroker;
     securityManager: ISecurityManager;
     dao: IDAO;
     views: Array<View>;

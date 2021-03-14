@@ -1,4 +1,5 @@
 import {ISecurityManager} from "./";
+import {Message} from "../Messaging";
 
 export class SecurityManager implements ISecurityManager {
     private static instance: SecurityManager;
@@ -22,5 +23,14 @@ export class SecurityManager implements ISecurityManager {
     }
 
     registerRoles(roles: Array<String>): void {
+    }
+
+    complete(): void {
+    }
+
+    error(err: any): void {
+    }
+
+    next(value: Message): void {
     }
 }

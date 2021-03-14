@@ -7,11 +7,13 @@ import {Message, BrokerMessage} from "../Messaging"
 import {ModuleBroker} from "../Messaging"
 
 import {DataModel, View} from "../Modules";
+import {CoreBroker} from "../Messaging/CoreBroker";
 
 export class Controller implements IController {
     private static instance: Controller;
 
-    broker: ModuleBroker;
+    coreBroker: CoreBroker;
+    modBroker: ModuleBroker;
     dao: IDAO;
     securityManager: ISecurityManager;
     views: Array<View>;
@@ -19,7 +21,8 @@ export class Controller implements IController {
     private constructor() {
         this.securityManager = SecurityManager.getInstance;
         this.dao = DAO.getInstance;
-        this.broker = ModuleBroker.init(this);
+        this.coreBroker = CoreBroker.init(this);
+        this.modBroker = ModuleBroker.init(this);
         this.views = new Array<View>();
 
         log.trace(this);
@@ -43,7 +46,11 @@ export class Controller implements IController {
     }
 
     private registerModules() {
-
+        // get module list from DAO
+        // wrap module list in config request message
+        // submit to moduleBroker
+        // wait for promise to resolve
+        //
     }
 
     receiveModuleConfig(views: Array<View>, roles: Array<String>, dataModels: Array<DataModel>): void {
@@ -58,7 +65,7 @@ export class Controller implements IController {
         }
     }
 
-    next(message: BrokerMessage): void {
+    next(message: Message): void {
         if (message.to === "controller" ) {
             // type guard to check whether req is a message to be passed on
             if ("from" in message.request) {

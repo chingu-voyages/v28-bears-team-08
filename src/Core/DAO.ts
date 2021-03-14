@@ -1,5 +1,6 @@
 import {IDAO} from "./";
 import {DataModel} from "../Modules";
+import {Message} from "../Messaging";
 
 export class DAO implements IDAO {
     private static instance: DAO;
@@ -22,5 +23,14 @@ export class DAO implements IDAO {
 
     registerDataModels(models: Array<DataModel>): void {
         models.forEach(model => this.dataModels.push(model));
+    }
+
+    complete(): void {
+    }
+
+    error(err: any): void {
+    }
+
+    next(value: Message): void {
     }
 }
