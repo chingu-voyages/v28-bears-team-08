@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Testing: Text retrieved from {driver.get("test")}.
+          Testing: Text retrieved from {driver.get("test").from}.
         </p>
         <a
           className="App-link"
