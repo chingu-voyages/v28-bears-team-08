@@ -1,13 +1,13 @@
-import {IUIDriver} from "./Interfaces/IUIDriver";
-import { Message } from "./Interfaces/Message";
-import { DataModel } from "./Modules/DataModel";
+import {IUIDriver} from "./Messaging";
+import { Message } from "./Messaging";
 
 class UIDriver implements IUIDriver {
-    get(request: String): Message {
+    get(request: Message): Message {
         return {
             from: "driver",
             to: "ui",
             request: request,
+            response: request.response
         };
     }
 

@@ -1,5 +1,4 @@
-import {View} from "./View";
-import {DataModel} from "./DataModel";
+import {View, DataModel} from "./";
 
 export interface AppModule {
     roleList: Array<String>;
