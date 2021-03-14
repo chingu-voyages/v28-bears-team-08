@@ -7,7 +7,7 @@ class UIDriver implements IUIDriver {
         return {
             from: "driver",
             to: "ui",
-            request: "a request",
+            request: request,
         };
     }
 
