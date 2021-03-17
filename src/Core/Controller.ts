@@ -1,9 +1,9 @@
-import log from "loglevel";
+import log, {Logger} from "loglevel";
 
-import {IController, ISecurityManager, IDAO} from "./";
+import {IController} from "./";
 import {DAO, SecurityManager} from "./";
 
-import {Message, BrokerMessage} from "../Messaging"
+import {Message} from "../Messaging"
 import {ModuleBroker} from "../Messaging"
 
 import {DataModel, View} from "../Modules";
@@ -11,16 +11,14 @@ import {CoreBroker} from "../Messaging/CoreBroker";
 
 export class Controller implements IController {
     private static instance: Controller;
+    private static logger: Logger = log.getLogger("CONTROLLER")
 
     coreBroker: CoreBroker;
     modBroker: ModuleBroker;
-    dao: IDAO;
-    securityManager: ISecurityManager;
     views: Array<View>;
 
     private constructor() {
-        this.securityManager = SecurityManager.getInstance;
-        this.dao = DAO.getInstance;
+        Controller.logger.info("Controller initializing")
         this.coreBroker = CoreBroker.init(this);
         this.modBroker = ModuleBroker.init(this);
         this.views = new Array<View>();

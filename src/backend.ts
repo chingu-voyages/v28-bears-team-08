@@ -1,7 +1,9 @@
 import log from "loglevel";
+import dotenv from "dotenv";
 import {Controller} from "./Core";
 
 function init() {
+    dotenv.config();
     log.setLevel("trace");
     log.debug("Initializing Controller...");
     Controller.init();
