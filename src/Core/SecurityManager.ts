@@ -1,36 +1,32 @@
-import {ISecurityManager} from "./";
-import {Message} from "../Messaging";
+import { ISecurityManager } from "./";
+import { Message } from "../Messaging";
 
 export class SecurityManager implements ISecurityManager {
-    private static instance: SecurityManager;
+  private static instance: SecurityManager;
 
-    roles: Array<String>;
+  roles: Array<String>;
 
-    private constructor() {
-        this.roles = new Array<String>();
+  private constructor() {
+    this.roles = new Array<String>();
+  }
+
+  static init() {
+    this.instance = new SecurityManager();
+  }
+
+  static get getInstance(): SecurityManager {
+    if (!this.instance) {
+      this.instance = new SecurityManager();
     }
 
-    static init() {
-        this.instance = new SecurityManager();
-    }
+    return this.instance;
+  }
 
-    static get getInstance(): SecurityManager {
-        if (!this.instance) {
-            this.instance = new SecurityManager();
-        }
+  registerRoles(roles: Array<String>): void {}
 
-        return this.instance;
-    }
+  complete(): void {}
 
-    registerRoles(roles: Array<String>): void {
-    }
+  error(err: any): void {}
 
-    complete(): void {
-    }
-
-    error(err: any): void {
-    }
-
-    next(value: Message): void {
-    }
+  next(value: Message): void {}
 }

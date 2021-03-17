@@ -1,11 +1,9 @@
-import {Observer} from "rxjs";
+import { Observer } from "rxjs";
 
-import {Message} from "../Messaging";
+import { Message } from "../Messaging";
 
-import {DataModel} from "../Modules";
+import { DataModel } from "../Modules";
 
-export interface IDAO extends Observer<Message>{
-    dataModels: Array<DataModel>
-
-    registerDataModels(models: Array<DataModel>): void;
+export interface IDAO extends Observer<Message> {
+  dataModels: Array<DataModel>;
 }

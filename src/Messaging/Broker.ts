@@ -1,7 +1,7 @@
-import {BrokerMessage} from "./Message";
+import { BrokerMessage } from "./Message";
 
 export interface Broker {
-    publish(msg: BrokerMessage): void;
+  publish(msg: BrokerMessage): void;
 
-    subscribe(): void;
+  subscribe(): void;
 }

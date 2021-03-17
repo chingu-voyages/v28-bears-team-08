@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import logo from "./logo.svg";
 
-import './App.css';
-import {UIDriver} from "./Messaging";
+import "./App.css";
+import { UIDriver } from "./Messaging";
 
 const driver = UIDriver.getInstance;
 
@@ -11,9 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Testing: Text retrieved from {driver.get("test").from}.
-        </p>
+        <p>Testing: Text retrieved from {driver.get("test").from}.</p>
         <a
           className="App-link"
           href="https://reactjs.org"

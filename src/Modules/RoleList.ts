@@ -1,3 +1,3 @@
 export interface RoleList {
-    roles: Array<String>;
+  roles: Array<String>;
 }

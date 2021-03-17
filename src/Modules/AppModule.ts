@@ -1,7 +1,7 @@
-import {View, DataModel} from "./";
+import { View, DataModel } from "./";
 
 export interface AppModule {
-    roleList: Array<String>;
-    views: Array<View>;
-    models: Array<DataModel>;
+  roleList: Array<String>;
+  views: Array<View>;
+  models: Array<DataModel>;
 }

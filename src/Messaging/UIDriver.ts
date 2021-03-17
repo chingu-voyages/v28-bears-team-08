@@ -1,39 +1,32 @@
-import {IUIDriver} from "./IUIDriver";
-import {Message} from "./Message";
+import { IUIDriver } from "./IUIDriver";
+import { Message } from "./Message";
 
 export class UIDriver implements IUIDriver {
-    private static instance: UIDriver;
+  private static instance: UIDriver;
 
-    private constructor() {
+  private constructor() {}
+
+  static get getInstance(): UIDriver {
+    if (!this.instance) {
+      this.instance = new UIDriver();
     }
 
-    static get getInstance(): UIDriver {
-        if (!this.instance) {
-            this.instance = new UIDriver();
-        }
+    return this.instance;
+  }
 
-        return this.instance;
-    }
+  get(request: String): Message {
+    // return a mock for now
+    return {
+      from: "driver",
+      to: "ui",
+      request: request,
+      response: new Promise<Message | Function | String>((resolve) => {}),
+    };
+  }
 
-    get(request: String): Message {
-        // return a mock for now
-        return {
-            from: "driver",
-            to: "ui",
-            request: request,
-            response: new Promise<Message | Function | String>(resolve => {
-            })
-        };
-    }
+  complete(): void {}
 
-    complete(): void {
+  error(err: any): void {}
 
-    }
-
-    error(err: any): void {
-    }
-
-    next(value: Message): void {
-    }
-
+  next(value: Message): void {}
 }
