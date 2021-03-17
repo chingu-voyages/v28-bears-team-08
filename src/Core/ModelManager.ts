@@ -1,0 +1,66 @@
+import { Schema } from "mongoose";
+
+export class ModelManager {
+  private static readonly viewSchema = new Schema({
+    name: String,
+    view: {},
+  });
+  private static readonly roleSchema = new Schema({
+    name: String,
+  });
+  private static readonly modelSchema = new Schema({
+    name: String,
+    model: Map,
+  });
+  private static readonly moduleSchema = new Schema({
+    // the name of the module
+    moduleName: String,
+    // the relative or absolute path to the module's code on the server
+    path: String,
+    // whether the module should be run
+    active: Boolean,
+    // the views associated with this module
+    views: [ModelManager.viewSchema],
+    // the roles associated with this module
+    roles: [ModelManager.roleSchema],
+    // the data models associated with this module
+    models: [ModelManager.modelSchema],
+  });
+  private static readonly userSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    roles: [String],
+  });
+
+  static getSchemas(): Array<Schema> {
+    const schemas: Array<Schema> = [];
+
+    schemas.push(ModelManager.viewSchema);
+    schemas.push(ModelManager.roleSchema);
+    schemas.push(ModelManager.modelSchema);
+    schemas.push(ModelManager.moduleSchema);
+    schemas.push(ModelManager.userSchema);
+
+    return schemas;
+  }
+
+  static get model(): Schema {
+    return ModelManager.modelSchema;
+  }
+
+  static get view(): Schema {
+    return ModelManager.viewSchema;
+  }
+
+  static get role(): Schema {
+    return ModelManager.roleSchema;
+  }
+
+  static get module(): Schema {
+    return ModelManager.moduleSchema;
+  }
+
+  static get user(): Schema {
+    return ModelManager.userSchema;
+  }
+}
