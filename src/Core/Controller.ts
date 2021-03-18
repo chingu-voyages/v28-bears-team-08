@@ -66,13 +66,7 @@ export class Controller implements IController {
     };
   }
 
-  next(message: Message): void {
-    if (message.to === "controller") {
-      // type guard to check whether req is a message to be passed on
-      if ("from" in message.request) {
-      }
-    }
-  }
+  next(message: Message): void {}
 
   complete(): void {}
 
