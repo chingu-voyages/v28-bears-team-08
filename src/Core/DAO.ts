@@ -43,6 +43,7 @@ export class DAO implements IDAO {
     this.instance = new DAO();
   }
 
+  // TODO this needs proper error checking & logging
   private connect(): void {
     const { CONNECTION_STRING } = process.env;
     if (CONNECTION_STRING) {

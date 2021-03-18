@@ -1,6 +1,5 @@
 import { DataModel } from "../../DataModel";
 import { Schema } from "mongoose";
-import { PersonModel } from "./PersonModel";
 import { ModelManager } from "../../../Core";
 
 export class ApplicationModel implements DataModel {
@@ -9,15 +8,16 @@ export class ApplicationModel implements DataModel {
 
   constructor() {
     this.model = new Schema({
-      household: [PersonModel],
+      household: [ModelManager.person],
       address: String,
-      landlord: PersonModel,
+      landlord: ModelManager.person,
       // rfa = Reason for Assistance
       rfa: String,
       // think this needs a model
       income: {},
       // document uploads are going to have to use gridfs
       documents: Array,
+      // data about the application that is not part of the application itself
       meta: {
         status: String,
         dateSubmitted: Date,

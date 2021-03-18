@@ -31,15 +31,30 @@ export class ModelManager {
     lastName: String,
     roles: [String],
   });
+  private static readonly personSchema = new Schema({
+    firstName: String,
+    lastName: String,
+    dateOfBirth: Date,
+    tin: String,
+    gender: String,
+    race: String,
+    ethnicity: String,
+    education: String,
+    income: new Schema({
+      has: Boolean,
+      monthly: Number,
+    }),
+  });
 
   static getSchemas(): Array<Schema> {
     const schemas: Array<Schema> = [];
 
-    schemas.push(ModelManager.viewSchema);
-    schemas.push(ModelManager.roleSchema);
-    schemas.push(ModelManager.modelSchema);
-    schemas.push(ModelManager.moduleSchema);
-    schemas.push(ModelManager.userSchema);
+    schemas.push(ModelManager.view);
+    schemas.push(ModelManager.role);
+    schemas.push(ModelManager.model);
+    schemas.push(ModelManager.module);
+    schemas.push(ModelManager.user);
+    schemas.push(ModelManager.person);
 
     return schemas;
   }
@@ -62,5 +77,9 @@ export class ModelManager {
 
   static get user(): Schema {
     return ModelManager.userSchema;
+  }
+
+  static get person(): Schema {
+    return ModelManager.personSchema;
   }
 }
