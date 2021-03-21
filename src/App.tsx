@@ -1,18 +1,33 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './Components/navbar.component';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './Theme/theme';
 import Login from './Components/login.component';
+import Register from './Components/register.component';
+import Profile from './Components/profile.component';
 
 const App: FunctionComponent = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const handleAuth = (valueFromChild: boolean) =>
+    setIsAuthenticated(valueFromChild);
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Navbar />
+        <Navbar isAuthenticated={isAuthenticated} />
         <Switch>
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            render={(props) => <Login {...props} handleAuth={handleAuth} />}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => <Register {...props} handleAuth={handleAuth} />}
+          />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

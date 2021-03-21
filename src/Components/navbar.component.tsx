@@ -10,9 +10,9 @@ import {
   Button,
 } from '@material-ui/core';
 
-// export interface Navbar Props {
-
-// }
+export interface isAuthedProps {
+  isAuthenticated: boolean;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar: FunctionComponent = () => {
+const Navbar: FunctionComponent<isAuthedProps> = ({ isAuthenticated }) => {
   const classes = useStyles();
   return (
     <AppBar className={classes.root} position="static">
