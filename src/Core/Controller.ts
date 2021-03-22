@@ -58,7 +58,10 @@ export class Controller implements IController {
   ): void {}
 
   requestData(request: Message): Message {
+    // TODO: this is just a stub, so fix it
     return {
+      type: "",
+      received: false,
       from: request.from,
       to: request.to,
       request: request.request,

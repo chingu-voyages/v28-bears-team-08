@@ -6,3 +6,11 @@ export interface Broker extends Observer<Message> {
 
   subscribe(): void;
 }
+
+export enum SystemComponents {
+  Controller = "CONTROLLER",
+  Security = "SECURITY",
+  DAO = "DAO",
+  UI = "UI",
+  Module = "MODULE",
+}

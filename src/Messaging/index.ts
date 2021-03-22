@@ -1,8 +1,7 @@
-import { Broker } from "./Broker";
+import { Broker, SystemComponents } from "./Broker";
 import { ModuleBroker } from "./ModuleBroker";
 import {
   Message,
-  BrokerMessage,
   DataRequest,
   SecurityMessage,
   TransientMessage,
@@ -13,11 +12,10 @@ import { UIDriver } from "./UIDriver";
 export type {
   Broker,
   Message,
-  BrokerMessage,
   SecurityMessage,
   TransientMessage,
   DataRequest,
   IUIDriver,
 };
 
-export { ModuleBroker, UIDriver };
+export { ModuleBroker, UIDriver, SystemComponents };

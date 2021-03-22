@@ -1,16 +1,8 @@
 import { DAO, IController, SecurityManager } from "../Core";
 
-import { Broker, Message} from "./";
+import { Broker, Message, SystemComponents, TransientMessage } from "./";
 import { Observer, Subject } from "rxjs";
 import { UIDriver } from "./UIDriver";
-
-export enum SystemComponents {
-  Controller = "CONTROLLER",
-  Security = "SECURITY",
-  DAO = "DAO",
-  UI = "UI",
-  Module = "MODULE",
-}
 
 export class CoreBroker implements Broker {
   private static instance: CoreBroker;
@@ -42,6 +34,11 @@ export class CoreBroker implements Broker {
   }
 
   publish(msg: Message): void {
+    // if TransientMessage, unwrap before routing
+    if (msg.type === "Transient" && "request" in msg.request) {
+      msg = msg.request;
+    }
+
     const route = this.getRoute(msg);
 
     if (route !== this) {
@@ -52,46 +49,77 @@ export class CoreBroker implements Broker {
   subscribe(): void {}
 
   private getRoute(msg: Message): Observer<Message> {
+    let route: Observer<Message>;
+
+    route = this.routeByType(msg);
+
+    return route;
+  }
+
+  private routeByType(msg: Message): Observer<Message> {
     let route: Observer<Message> = this;
 
     // First, route based on Message type
     switch (msg.type) {
-      case "Security":
+      case "Security": {
         route = this.security;
         break;
-      case "DataRequest":
+      }
+      case "DataRequest": {
         route = this.dataAccess;
         break;
-      case "ViewRequest":
+      }
+      case "ViewRequest": {
         route = this.controller;
         break;
-      case "DataResponse":
-      case "Transient":
-        // Second, route based on destination field
-        if (msg.to in SystemComponents) {
-          switch (msg.to) {
-            case SystemComponents.DAO:
-              route = this.dataAccess;
-              break;
-            case SystemComponents.Controller:
-              route = this.controller;
-              break;
-            case SystemComponents.Security:
-              route = this.security;
-              break;
-            case SystemComponents.UI:
-              route = this.viewDriver;
-              break;
-            case SystemComponents.Module:
-              // TODO Work out how this needs to work -
-              //  Module in .to indicates the Message needs to be
-              //  handed off to the other broker
-              throw new Error("Cannot find route");
-          }
+      }
+      case "DataResponse": {
+        route = this.routeByTo(msg);
+        break;
+      }
+      case "Transient": {
+        if ("request" in msg.request) {
+          route = this.getRoute(msg.request);
         }
         break;
+      }
       default:
         throw new Error("Cannot find route");
+    }
+
+    return route;
+  }
+
+  private routeByTo(msg: Message): Observer<Message> {
+    let route: Observer<Message> = this;
+
+    // route based on destination field
+    if (msg.to in SystemComponents) {
+      switch (msg.to) {
+        case SystemComponents.DAO:
+          route = this.dataAccess;
+          break;
+        case SystemComponents.Controller:
+          route = this.controller;
+          break;
+        case SystemComponents.Security:
+          route = this.security;
+          break;
+        case SystemComponents.UI:
+          route = this.viewDriver;
+          break;
+        case SystemComponents.Module:
+          let newMsg: TransientMessage = {
+            to: msg.to,
+            from: msg.from,
+            received: false,
+            request: msg,
+            type: "Transient",
+          };
+          msg = newMsg;
+          route = this.controller;
+          break;
+      }
     }
 
     return route;

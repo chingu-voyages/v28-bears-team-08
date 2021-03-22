@@ -1,16 +1,16 @@
 import { View } from "../Modules";
-import { SystemComponents } from "./CoreBroker";
+import { SystemComponents } from "./Broker";
+import { QueryType } from "../Core";
 
 /**
  * The base message type.
  */
 export interface Message {
   type: String;
-  // TODO: implement SystemComponent interface for Message routing purposes
   from: SystemComponents;
   to: SystemComponents;
   received: Boolean;
-  request: Message | Function | String;
+  request: Message | Function | String | QueryType;
   response?: Promise<unknown>;
 }
 
@@ -21,6 +21,10 @@ export interface Message {
 export interface DataRequest extends Message {
   type: "DataRequest";
   to: SystemComponents.DAO;
+  model: unknown;
+  conditions: {};
+  projection?: {};
+  options?: {};
 }
 
 /**
@@ -46,7 +50,8 @@ export interface SecurityMessage extends Message {
 
 /**
  * A Message type that indicates Message needs further routing.
- * Used for hand-offs between Brokers.
+ * Used for hand-offs between Brokers. This type should never be used
+ * outside of the Broker routing methods.
  */
 export interface TransientMessage extends Message {
   type: "Transient";
