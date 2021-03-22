@@ -1,5 +1,5 @@
-import log, { Logger } from "loglevel";
-
+import bunyan from "bunyan";
+import Logger from "bunyan";
 import { IController } from "./";
 import { DAO, SecurityManager } from "./";
 
@@ -11,7 +11,10 @@ import { CoreBroker } from "../Messaging/CoreBroker";
 
 export class Controller implements IController {
   private static instance: Controller;
-  private static logger: Logger = log.getLogger("CONTROLLER");
+  private static logger: Logger = bunyan.createLogger({
+    name: "CONTROLLER",
+    level: "trace",
+  });
 
   coreBroker: CoreBroker;
   modBroker: ModuleBroker;
@@ -22,8 +25,6 @@ export class Controller implements IController {
     this.coreBroker = CoreBroker.init(this);
     this.modBroker = ModuleBroker.init(this);
     this.views = new Array<View>();
-
-    log.trace(this);
   }
 
   static init(): void {
@@ -39,7 +40,6 @@ export class Controller implements IController {
       this.instance = new Controller();
     }
 
-    console.log("Test");
     return this.instance;
   }
 

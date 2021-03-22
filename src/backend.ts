@@ -1,15 +1,17 @@
-import log from "loglevel";
+import bunyan from "bunyan";
 import dotenv from "dotenv";
-import {Controller} from "./Core";
+import { Controller } from "./Core";
+
+const log = bunyan.createLogger({ name: "STARTUP", level: "trace" });
 
 function init() {
-    dotenv.config();
-    log.setLevel("trace");
-    log.debug("Initializing Controller...");
-    Controller.init();
-    if (Controller.controller) {
-        log.debug("Controller successfully initialized.");
-    }
+  dotenv.config();
+
+  log.debug("Initializing Controller...");
+  Controller.init();
+  if (Controller.controller) {
+    log.debug("Controller successfully initialized.");
+  }
 }
 
 log.debug("Starting system...");

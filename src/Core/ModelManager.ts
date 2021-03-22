@@ -1,6 +1,9 @@
 import { Schema } from "mongoose";
+import bunyan from "bunyan";
+import Logger from "bunyan";
 
 export class ModelManager {
+  private static logger: Logger = bunyan.createLogger({name: "MODEL MANAGER", level: "trace"})
   private static readonly viewSchema = new Schema({
     name: String,
     view: {},
@@ -55,6 +58,8 @@ export class ModelManager {
     schemas.push(ModelManager.module);
     schemas.push(ModelManager.user);
     schemas.push(ModelManager.person);
+
+    ModelManager.logger.info("schemas build successfully")
 
     return schemas;
   }

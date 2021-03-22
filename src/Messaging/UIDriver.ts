@@ -1,10 +1,15 @@
 import { IUIDriver } from "./IUIDriver";
 import { Message } from "./Message";
+import bunyan from "bunyan";
+import Logger from "bunyan";
 
 export class UIDriver implements IUIDriver {
+  private static logger: Logger = bunyan.createLogger({name: "UI DRIVER", level: "trace"})
   private static instance: UIDriver;
 
-  private constructor() {}
+  private constructor() {
+    UIDriver.logger.info("UI Driver initializing...")
+  }
 
   static get getInstance(): UIDriver {
     if (!this.instance) {

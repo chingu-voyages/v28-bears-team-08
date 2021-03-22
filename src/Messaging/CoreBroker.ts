@@ -3,8 +3,14 @@ import { DAO, IController, SecurityManager } from "../Core";
 import { Broker, Message, BrokerMessage } from "./";
 import { Subject } from "rxjs";
 import { UIDriver } from "./UIDriver";
+import bunyan from "bunyan";
+import Logger from "bunyan";
 
 export class CoreBroker implements Broker {
+  private static logger: Logger = bunyan.createLogger({
+    name: "CORE BROKER",
+    level: "trace",
+  });
   private static instance: CoreBroker;
   private controller: Subject<Message>;
   private dataAccess: Subject<Message>;
@@ -12,6 +18,7 @@ export class CoreBroker implements Broker {
   private viewDriver: Subject<Message>;
 
   private constructor(core: IController) {
+    CoreBroker.logger.info("Core Broker initializing...");
     this.controller = new Subject<Message>();
     this.controller.subscribe(core);
 

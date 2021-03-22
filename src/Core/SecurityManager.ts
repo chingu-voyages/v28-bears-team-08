@@ -1,12 +1,19 @@
 import { ISecurityManager } from "./";
 import { Message } from "../Messaging";
+import bunyan from "bunyan";
+import Logger from "bunyan";
 
 export class SecurityManager implements ISecurityManager {
+  private static logger: Logger = bunyan.createLogger({
+    name: "SECURITY MANAGER",
+    level: "trace",
+  });
   private static instance: SecurityManager;
 
   roles: Array<String>;
 
   private constructor() {
+    SecurityManager.logger.info("Security Manager initializing...");
     this.roles = new Array<String>();
   }
 

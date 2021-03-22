@@ -1,13 +1,20 @@
 import mongoose, { Connection, Mongoose, Schema } from "mongoose";
+import bunyan from "bunyan";
+import Logger from "bunyan";
 
 import { IDAO } from "./";
 import { DataModel } from "../Modules";
 import { Message } from "../Messaging";
 import { ModelManager } from "./ModelManager";
+import { Controller } from "./Controller";
 
 require("dotenv").config();
 
 export class DAO implements IDAO {
+  private static logger: Logger = bunyan.createLogger({
+    name: "DAO",
+    level: "trace",
+  });
   private static instance: DAO;
   private mongoose: Mongoose;
   private db: Connection;
@@ -24,7 +31,7 @@ export class DAO implements IDAO {
     this.db = mongoose.connection;
     this.db.on("error", console.error.bind(console, "connection error:"));
     this.db.once("open", () => {
-      console.log("Connection to database successful.");
+      DAO.logger.info("Connection to database successful.");
     });
 
     // Build schemas
@@ -51,6 +58,8 @@ export class DAO implements IDAO {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
+    } else {
+      DAO.logger.fatal("mongoose failed to connect to the URI");
     }
   }
 
