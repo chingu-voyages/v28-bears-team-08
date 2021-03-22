@@ -41,9 +41,25 @@ const Navbar: FunctionComponent<isAuthedProps> = ({ isAuthenticated }) => {
         <Typography variant="h6" className={classes.title}>
           News
         </Typography>
-        <Link to="/login">
-          <Button color="inherit">Login</Button>
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <div>
+              <Link to="/profile">PROFILE</Link>
+            </div>
+            <div>
+              <Link to="/logout">LOGOUT</Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <Link to="/register">REGISTER</Link>
+            </div>
+            <div>
+              <Link to="/Login">LOGIN</Link>
+            </div>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
