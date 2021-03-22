@@ -4,6 +4,8 @@ import { Broker, Message, SystemComponents, TransientMessage } from "./";
 import { Observer, Subject } from "rxjs";
 import { UIDriver } from "./UIDriver";
 
+import { createTransientMessage } from "./messageFactory";
+
 export class CoreBroker implements Broker {
   private static instance: CoreBroker;
   private readonly controller: Subject<Message>;
@@ -109,14 +111,7 @@ export class CoreBroker implements Broker {
           route = this.viewDriver;
           break;
         case SystemComponents.Module:
-          let newMsg: TransientMessage = {
-            to: msg.to,
-            from: msg.from,
-            received: false,
-            request: msg,
-            type: "Transient",
-          };
-          msg = newMsg;
+          msg = createTransientMessage(msg);
           route = this.controller;
           break;
       }

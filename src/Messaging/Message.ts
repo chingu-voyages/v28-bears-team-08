@@ -21,6 +21,7 @@ export interface Message {
 export interface DataRequest extends Message {
   type: "DataRequest";
   to: SystemComponents.DAO;
+  request: QueryType;
   model: unknown;
   conditions: {};
   projection?: {};
@@ -35,7 +36,7 @@ export interface DataRequest extends Message {
  */
 export interface DataResponse extends Message {
   type: "DataResponse";
-  Response: Promise<Array<Record<string, unknown>>>;
+  response: Promise<Array<Record<string, unknown>>>;
 }
 
 /**
@@ -70,3 +71,4 @@ export interface ViewMessage extends Message {
   // response type for this Message type is a Promise that resolves into a View
   response: Promise<View>;
 }
+
