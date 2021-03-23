@@ -6,9 +6,24 @@ export interface User {
   appStatus?: string; //Q: how to conditionally require appStatus only when the role is publicUser?
 }
 
+export interface App {
+  appStatus: string;
+  dateOfBirth: string; //This should be string when received from database
+  tin: string;
+  gender: string;
+  race: string;
+  ethnicity: string;
+  education: string;
+  income: {
+    has: boolean;
+    monthly: number;
+  };
+}
+
 const Profile: FunctionComponent = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [appStatus, setAppstatus] = useState(''); //Q: Same as above.
+  const [app, setApp] = useState<App | null>(null);
+
   const [comment, setComment] = useState(''); //Decide if comment is a standalone model or is part of another model. If latter, which model?
   const name = (user && user.name) || 'Name missing..';
   useEffect(() => {
@@ -21,8 +36,8 @@ const Profile: FunctionComponent = () => {
   return (
     <>
       <h3>Good morning, {name}</h3>
-      <h3>Status of your application is {appStatus}</h3>h
-      <AppStatus appStatus={appStatus} />
+      {app && <h3>Status of your application is {app.appStatus}</h3>}
+      {app && <AppStatus appStatus={app.appStatus} />}
       <button>Apply / Reapply</button>
     </>
   );
