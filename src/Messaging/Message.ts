@@ -39,7 +39,7 @@ export interface DataRequest extends Message {
  */
 export interface DataResponse extends Message {
   type: "DataResponse";
-  response: Promise<Array<Record<string, unknown>>>;
+  response: Promise<{}>;
 }
 
 /**

@@ -50,7 +50,7 @@ export function createDataRequest(
 
 export function createDataResponse(
   msg: DataRequest,
-  response: Promise<Array<Record<string, unknown>>>
+  response: Promise<{}>
 ): DataResponse {
   return {
     type: "DataResponse",

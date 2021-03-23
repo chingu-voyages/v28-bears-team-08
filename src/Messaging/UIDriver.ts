@@ -49,6 +49,68 @@ export class UIDriver implements IUIDriver {
   }
 
   /**
+   * Method to request data from the backend. The particular query requested is provided
+   * by the QueryType enum, currently in the DAO. Model refers to the type of data being
+   * requested - User, Person, etc - and will be used to determine which collection to
+   * search in the database. Conditions, projection, and options - the last two are
+   * optional - all follow the same rules as queries in mongoose.
+   *
+   * example call:
+   *
+   * driver.getData(QueryTypes.find, "application", {_id: 123456}, {address: 1})
+   *
+   * will return a Promise containing the service address from application #123456
+   *
+   * @param query the requested operation from the database, represented by a key from the QueryType enum
+   * @param model the type of data being requested
+   * @param conditions main filters for the query
+   * @param projection (optional) object declaring which fields from the resulting dataset to include
+   * @param options (optional) object containing query-specific options
+   *
+   * @returns a Promise containing an object, representing the results of the query
+   */
+  async getData(
+    query: QueryType,
+    model: unknown,
+    conditions: {},
+    projection?: {},
+    options?: {}
+  ): Promise<{}> {
+    const request = createDataRequest(
+      query,
+      SystemComponents.UI,
+      model,
+      conditions,
+      projection,
+      options
+    );
+
+    const prom = await CoreBroker.submit(request)
+      .then((response: unknown) => {
+        // block the executing thread until the response comes in
+        let cont: boolean = true;
+        do {
+          if (response) {
+            // response submitted
+            if (this.responseQueue.get(request)) {
+              // response received by responseQueue
+              return this.responseQueue.get(request) as DataResponse;
+            }
+          }
+        } while (cont);
+      })
+      .then((response) => {
+        return response!.response;
+      })
+      .catch();
+
+    // clear the response from the responseQueue
+    this.responseQueue.delete(request);
+
+    return Promise.resolve(prom);
+  }
+
+  /**
    * this method won't exist in production, it's only here to provide a mock
    * for the changed text in the starter app.
    *
@@ -81,43 +143,5 @@ export class UIDriver implements IUIDriver {
         value as DataResponse
       );
     }
-  }
-
-  async getData(
-    query: QueryType,
-    model: unknown,
-    conditions: {},
-    projection?: {},
-    options?: {}
-  ): Promise<unknown> {
-    const request = createDataRequest(
-      query,
-      SystemComponents.UI,
-      model,
-      conditions,
-      projection,
-      options
-    );
-
-    const prom = await CoreBroker.submit(request)
-      .then((response: unknown) => {
-        // block the executing thread until the response comes in
-        let cont: boolean = true;
-        do {
-          if (response) {
-            // response submitted
-            if (this.responseQueue.get(request)) {
-              // response received by responseQueue
-              return this.responseQueue.get(request) as DataResponse;
-            }
-          }
-        } while (cont);
-      })
-      .then((response) => {
-        return response!.response;
-      })
-      .catch();
-
-    return Promise.resolve(prom);
   }
 }
