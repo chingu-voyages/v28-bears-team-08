@@ -19,7 +19,7 @@ const Apply: FunctionComponent<ApplyProps> = () => {
   //app properties as pieces of state to come
   return (
     <h3>
-      This is Apply component placeholder. Need to final schema to write form
+      This is Apply component placeholder. Need the final schema to write form
     </h3>
     //application form controlled component to come
   );

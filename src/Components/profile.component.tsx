@@ -1,4 +1,5 @@
 import { FunctionComponent, useState, useEffect } from 'react';
+import AppStatus from './appstatus.component';
 export interface User {
   name: string;
   role: string;
@@ -7,11 +8,24 @@ export interface User {
 
 const Profile: FunctionComponent = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [appStatus, setAppstatus] = useState(''); //Q: Same as above.
+  const [comment, setComment] = useState(''); //Decide if comment is a standalone model or is part of another model. If latter, which model?
   const name = (user && user.name) || 'Name missing..';
   useEffect(() => {
-    //getProfile logic
+    //get User Profile
+    //get Application details to prepopulate if there is an existing application for the user
+    //get Comment
   });
-  return <h3>Good morning, {name}</h3>;
+  //add onClick={() => history.push(Go to Apply component)}
+  //
+  return (
+    <>
+      <h3>Good morning, {name}</h3>
+      <h3>Status of your application is {appStatus}</h3>h
+      <AppStatus appStatus={appStatus} />
+      <button>Apply / Reapply</button>
+    </>
+  );
 };
 
 export default Profile;

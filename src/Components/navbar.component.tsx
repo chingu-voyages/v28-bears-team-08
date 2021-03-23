@@ -39,7 +39,7 @@ const Navbar: FunctionComponent<isAuthedProps> = ({ isAuthenticated }) => {
           aria-label="menu"
         ></IconButton>
         <Typography variant="h6" className={classes.title}>
-          News
+          Logo To Come
         </Typography>
         {isAuthenticated ? (
           <>
