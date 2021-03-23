@@ -1,6 +1,6 @@
 import { DAO, IController, SecurityManager } from "../Core";
 
-import { Broker, Message, SystemComponents, TransientMessage } from "./";
+import { Broker, Message, SystemComponents } from "./";
 import { Observer, Subject } from "rxjs";
 import { UIDriver } from "./UIDriver";
 
@@ -37,11 +37,13 @@ export class CoreBroker implements Broker {
 
   publish(msg: Message): void {
     // if TransientMessage, unwrap before routing
-    if (msg.type === "Transient" && "request" in msg.request) {
-      msg = msg.request;
+    if (msg.type === "Transient") {
+      // here we have to explicitly inform TS that we know the request in a
+      // TransientMessage is another Message
+      msg = msg.request as Message;
     }
 
-    const route = this.getRoute(msg);
+    const route = this.routeMessage(msg);
 
     if (route !== this) {
       route.next(msg);
@@ -50,7 +52,7 @@ export class CoreBroker implements Broker {
 
   subscribe(): void {}
 
-  private getRoute(msg: Message): Observer<Message> {
+  private routeMessage(msg: Message): Observer<Message> {
     let route: Observer<Message>;
 
     route = this.routeByType(msg);
@@ -71,7 +73,7 @@ export class CoreBroker implements Broker {
         route = this.dataAccess;
         break;
       }
-      case "ViewRequest": {
+      case "View": {
         route = this.controller;
         break;
       }
@@ -80,8 +82,9 @@ export class CoreBroker implements Broker {
         break;
       }
       case "Transient": {
+        // @ts-ignore
         if ("request" in msg.request) {
-          route = this.getRoute(msg.request);
+          route = this.routeMessage(msg.request);
         }
         break;
       }
@@ -118,6 +121,12 @@ export class CoreBroker implements Broker {
     }
 
     return route;
+  }
+
+  static async submit(msg: Message): Promise<unknown> {
+    let route = this.instance.routeMessage(msg);
+    route.next(msg);
+    return msg.response;
   }
 
   complete(): void {}

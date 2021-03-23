@@ -1,4 +1,4 @@
-import mongoose, { Connection, Model, Mongoose, Schema } from "mongoose";
+import mongoose, { Connection, Mongoose, Schema } from "mongoose";
 
 import { IDAO } from "./";
 import { DataModel } from "../Modules";

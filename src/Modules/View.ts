@@ -1,3 +1,6 @@
-import React from "react";
+import { FunctionComponent } from "react";
 
-export interface View extends React.Component {}
+export interface View {
+  name: String;
+  component: FunctionComponent;
+}

@@ -6,6 +6,13 @@ import {
   SecurityMessage,
   TransientMessage,
 } from "./Message";
+import {
+  createTransientMessage,
+  createSecurityMessage,
+  createDataResponse,
+  createDataRequest,
+  createViewMessage,
+} from "./messageFactory";
 import { IUIDriver } from "./IUIDriver";
 import { UIDriver } from "./UIDriver";
 
@@ -18,4 +25,13 @@ export type {
   IUIDriver,
 };
 
-export { ModuleBroker, UIDriver, SystemComponents };
+export {
+  ModuleBroker,
+  UIDriver,
+  SystemComponents,
+  createDataRequest,
+  createDataResponse,
+  createSecurityMessage,
+  createTransientMessage,
+  createViewMessage,
+};

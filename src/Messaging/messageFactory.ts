@@ -44,6 +44,7 @@ export function createDataRequest(
     from: from,
     received: false,
     request: request,
+    response: new Promise<boolean>(() => {}),
   };
 }
 
@@ -60,16 +61,6 @@ export function createDataResponse(
     response: response,
   };
 }
-
-createDataRequest(
-  QueryType.findOne,
-  SystemComponents.UI,
-  "application",
-  {
-    _id: 123456,
-  },
-  { firstName: 1 }
-);
 
 export function createSecurityMessage(
   operation: "authenticate" | "authorize",
@@ -88,9 +79,7 @@ export function createSecurityMessage(
   };
 }
 
-export function createTransientMessage(
-  msg: Message,
-): TransientMessage {
+export function createTransientMessage(msg: Message): TransientMessage {
   return {
     type: "Transient",
     request: msg,

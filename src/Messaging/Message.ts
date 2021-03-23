@@ -17,11 +17,14 @@ export interface Message {
 /**
  * A Message type for requests for data from the database.
  * Broker will prioritize routing first through auth check, then to DAO.
+ * The response type of Promise<boolean> will be resolved once the
+ * corresponding DataResponse is submitted to the CoreBroker.
  */
 export interface DataRequest extends Message {
   type: "DataRequest";
   to: SystemComponents.DAO;
   request: QueryType;
+  response: Promise<boolean>;
   model: unknown;
   conditions: {};
   projection?: {};
@@ -71,4 +74,3 @@ export interface ViewMessage extends Message {
   // response type for this Message type is a Promise that resolves into a View
   response: Promise<View>;
 }
-
