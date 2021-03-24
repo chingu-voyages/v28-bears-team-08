@@ -61,3 +61,20 @@ export class DAO implements IDAO {
 
   next(value: Message): void {}
 }
+
+export enum QueryType {
+  deleteMany,
+  deleteOne,
+  find,
+  findById,
+  findByIdAndDelete,
+  findByIdAndRemove,
+  findByIdAndUpdate,
+  findOne,
+  findOneAndDelete,
+  findOneAndRemove,
+  findOneAndUpdate,
+  replaceOne,
+  updateMany,
+  updateOne,
+}

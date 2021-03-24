@@ -15,13 +15,13 @@ export class Controller implements IController {
 
   coreBroker: CoreBroker;
   modBroker: ModuleBroker;
-  views: Array<View>;
+  views: Map<string, View>;
 
   private constructor() {
     Controller.logger.info("Controller initializing");
     this.coreBroker = CoreBroker.init(this);
     this.modBroker = ModuleBroker.init(this);
-    this.views = new Array<View>();
+    this.views = new Map<string, View>();
 
     log.trace(this);
   }
@@ -57,20 +57,11 @@ export class Controller implements IController {
     dataModels: Array<DataModel>
   ): void {}
 
-  requestData(request: Message): Message {
-    return {
-      from: request.from,
-      to: request.to,
-      request: request.request,
-      response: request.response,
-    };
-  }
-
   next(message: Message): void {
-    if (message.to === "controller") {
-      // type guard to check whether req is a message to be passed on
-      if ("from" in message.request) {
-      }
+    if (message.type === "ViewRequest") {
+      message.response = Promise.resolve(
+        this.views.get(message.request as string)
+      );
     }
   }
 

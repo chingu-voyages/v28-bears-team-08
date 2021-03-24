@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 
 import { IController } from "../Core";
 
-import { BrokerMessage, Message } from "./";
+import { Message } from "./";
 import { Broker } from "./Broker";
 
 export class ModuleBroker implements Broker {
@@ -27,7 +27,13 @@ export class ModuleBroker implements Broker {
     }
   }
 
-  publish(msg: BrokerMessage) {}
+  publish(msg: Message) {}
 
   subscribe() {}
+
+  complete(): void {}
+
+  error(err: any): void {}
+
+  next(value: Message): void {}
 }
