@@ -1,5 +1,5 @@
 import { FunctionComponent, useState, useEffect } from 'react';
-import AppStatus from './appstatus.component';
+import AppStatus from './appStatus.component';
 export interface User {
   name: string;
   role: string;

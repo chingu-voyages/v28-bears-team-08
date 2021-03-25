@@ -1,10 +1,10 @@
 export const initialState = {
   user: {
-    email: 'b123@gmail.com',
-    firstName: 'Bobby',
-    lastName: 'Taylor',
+    email: 'a123@gmail.com',
+    firstName: 'Aaron',
+    lastName: 'Alpha',
     role: 'applicant',
-    id: 'b123',
+    id: 'a123',
   },
   //password is not on FE, only stored in DB
   applications: [
@@ -12,12 +12,12 @@ export const initialState = {
       appStatus: 'DRAFT',
       id: Math.random().toString(36).slice(2),
       formNumber: '1040NR',
-      signatory: 'Bobby Taylor',
+      signatory: 'Aaron Alpha',
       tinOfSignatory: '111-11-1111',
       dateSubmitted: new Date().toJSON(),
       body: {
-        firstName: 'Bobby',
-        lastName: 'Taylor',
+        firstName: 'Aaron',
+        lastName: 'Alpha',
         dateOfBirth: '1997-02-28',
         tin: '111-11-1111',
         gender: 'M',
@@ -86,6 +86,73 @@ export interface AppState {
   user: User;
   applications: Application[];
 }
+
+//MORE MOCK DATA TO USE
+// user: {
+//   email: 'b123@gmail.com',
+//   firstName: 'Bobby',
+//   lastName: 'Bravo',
+//   role: 'applicant',
+//   id: 'b123',
+// },
+// //password is not on FE, only stored in DB
+// applications: [
+//   {
+//     appStatus: 'DRAFT',
+//     id: Math.random().toString(36).slice(2),
+//     formNumber: '1040NR',
+//     signatory: 'Bobby Bravo',
+//     tinOfSignatory: '211-11-1111',
+//     dateSubmitted: new Date().toJSON(),
+//     body: {
+//       firstName: 'Bobby',
+//       lastName: 'Bravo',
+//       dateOfBirth: '1990-03-28',
+//       tin: '211-11-1111',
+//       gender: 'M',
+//       race: 'White',
+//       ethnicity: 'Caucasian',
+//       education: 'College',
+//       income: {
+//         has: true,
+//         monthly: 2000,
+//       },
+//     },
+//   },
+// ],
+
+// user: {
+//   email: 'c123@gmail.com',
+//   firstName: 'Cameron',
+//   lastName: 'Charley',
+//   role: 'applicant',
+//   id: 'b123',
+// },
+// //password is not on FE, only stored in DB
+// applications: [
+//   {
+//     appStatus: 'DRAFT',
+//     id: Math.random().toString(36).slice(2),
+//     formNumber: '1040NR',
+//     signatory: 'Cameron Charley',
+//     tinOfSignatory: '311-11-1111',
+//     dateSubmitted: new Date().toJSON(),
+//     body: {
+//       firstName: 'Cameron',
+//       lastName: 'Charley',
+//       dateOfBirth: '1991-03-01',
+//       tin: '311-11-1111',
+//       gender: 'F',
+//       race: '',
+//       ethnicity: 'Black',
+//       education: 'HighSchool',
+//       income: {
+//         has: false,
+//         monthly: 0,
+//       },
+//     },
+//   },
+// ],
 
 // import { Schema } from "mongoose";
 

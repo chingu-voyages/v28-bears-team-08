@@ -14,6 +14,37 @@ export interface AppStatusProps {
   employeeId: string;
 }
 
+export const getAppStatus = (dispatch) => {
+  dispatch(updateAppStatusLoading());
+  return Response.then(
+    (res) => {
+      if (res.ok) {
+        return res;
+      } else {
+        const err = new Error(`${res.status}`);
+      }
+    },
+    (err) => {
+      const errMsg = new Error(err.message);
+      throw errMsg;
+    }
+  )
+    .then((appStatus) => dispatch(updateAppStatusSuccess(appStatus)))
+    .catch((err) => updateAppStatusFailed(err.message)); //TODO: fetch appstatus from backend through UIDriver. Assumig a respose is returned.
+};
+
+export const updateAppStatusLoading = () => {
+  type: ActionTypes.UPDATE_APPSTATUS_REQUEST;
+};
+export const updateAppStatusFailed = (errMsg) => ({
+  type: ActionTypes.AUTHENTICATE_USER_FAILURE,
+  payload: errMsg,
+});
+export const updateAppStatusSuccess = (id, isInternal, nextStatus) => ({
+  type: ActionTypes.UPDATE_APPSTATUS_SUCCESS,
+  payload: { id, isInternal, nextStatus },
+});
+
 export const updateAppStatus = ({
   id,
   isInternal,
