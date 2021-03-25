@@ -3,7 +3,8 @@ import AppStatus from './appstatus.component';
 export interface User {
   name: string;
   role: string;
-  appStatus?: string; //Q: how to conditionally require appStatus only when the role is publicUser?
+  email: string;
+  //Q: how to conditionally require appStatus only when the role is publicUser?
 }
 
 export interface App {
