@@ -13,16 +13,8 @@ export interface ManagerRouterProps {}
 const ManagerRouter: FunctionComponent = () => {
   return (
     <Switch>
-      <Route
-        exact
-        path="/login"
-        render={(props) => <Login {...props} handleAuth={handleAuth} />}
-      />
-      <Route
-        exact
-        path="/register"
-        render={(props) => <Register {...props} handleAuth={handleAuth} />}
-      />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
       <Route exact path="/mapplist" component={MappList} />
       <Route exact path="/mapplist/:id" component={AppDetails} />
     </Switch>

@@ -12,16 +12,8 @@ export interface ApplicantRouterProps {}
 const ApplicantRouter: FunctionComponent = () => {
   return (
     <Switch>
-      <Route
-        exact
-        path="/login"
-        render={(props) => <Login {...props} handleAuth={handleAuth} />}
-      />
-      <Route
-        exact
-        path="/register"
-        render={(props) => <Register {...props} handleAuth={handleAuth} />}
-      />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/apply" component={Apply} />
     </Switch>

@@ -8,30 +8,26 @@ import Login from './Components/login.component';
 import Register from './Components/register.component';
 import Profile from './Components/profile.component';
 import Apply from './Components/apply.component';
-import ApplicantRouter from './routers/ApplicantRouter.component'
-import ManagerRouter from './routers/ManagerRouter.component'
-import StaffRouter from './routers/StaffRouter.component'
+import ApplicantRouter from './Components/routers/applicantRouter.component';
+import ManagerRouter from './Components/routers/managerRouter.component';
+import StaffRouter from './Components/routers/staffRouter.component';
+
+const user = { role: '' };
 
 const App: FunctionComponent = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const handleAuth = (valueFromChild: boolean) =>
-    setIsAuthenticated(valueFromChild);
   //TODO: Provide a switch statement for different roles
-  
+  const RoleBasedRouter =
+    user.role === 'manager'
+      ? ManagerRouter
+      : user.role === 'staff'
+      ? StaffRouter
+      : ApplicantRouter;
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Navbar isAuthenticated={isAuthenticated} />
-        {switch(role) {//Todo: This needs to be defined and provided above
-    case applicant:
-      return <ApplicantRouter />
-    case staff:
-      return <StaffRouter />
-    case manager:
-      return <ManagerRouter />}
-  }
-        </Switch>
+        <Navbar isAuthenticated={!!user} />
+        <RoleBasedRouter />
       </BrowserRouter>
     </ThemeProvider>
   );

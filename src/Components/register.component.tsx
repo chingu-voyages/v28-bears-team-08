@@ -1,11 +1,6 @@
 import { FunctionComponent } from 'react';
 
-export interface AuthProps {
-  handleAuth: (value: boolean) => void;
-}
-
-const Register: FunctionComponent<AuthProps> = ({ handleAuth }) => {
-  handleAuth(true);
+const Register: FunctionComponent = () => {
   return <h2>This is Register component</h2>;
 };
 

@@ -1,11 +1,6 @@
 import { FunctionComponent } from 'react';
 
-export interface AuthProps {
-  handleAuth: (value: boolean) => void;
-}
-
-const Login: FunctionComponent<AuthProps> = ({ handleAuth }) => {
-  handleAuth(true);
+const Login: FunctionComponent = () => {
   return (
     <>
       <h2>This is login component</h2>

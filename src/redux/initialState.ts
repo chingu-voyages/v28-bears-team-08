@@ -1,4 +1,4 @@
-export const initialState = {
+export const initialState: AppState = {
   user: {
     email: 'a123@gmail.com',
     firstName: 'Aaron',
@@ -7,9 +7,11 @@ export const initialState = {
     id: 'a123',
   },
   //password is not on FE, only stored in DB
+  //public user has one app but internal employee users can have multiple apps, so an array here
   applications: [
     {
-      appStatus: 'DRAFT',
+      internalAppStatus: 'TO_OPEN',
+      externalAppStatus: 'DRAFT',
       id: Math.random().toString(36).slice(2),
       formNumber: '1040NR',
       signatory: 'Aaron Alpha',
