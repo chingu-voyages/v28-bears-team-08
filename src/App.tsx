@@ -26,14 +26,14 @@ const App: FunctionComponent = () => {
       : ApplicantRouter;
 
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Navbar isAuthenticated={!!user} />
           <RoleBasedRouter />
         </BrowserRouter>
-      </Provider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };
 //TODO: check component name with Cesar.
