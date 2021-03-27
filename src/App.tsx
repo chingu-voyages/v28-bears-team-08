@@ -11,11 +11,13 @@ import Apply from './Components/apply.component';
 import ApplicantRouter from './Components/routers/applicantRouter.component';
 import ManagerRouter from './Components/routers/managerRouter.component';
 import StaffRouter from './Components/routers/staffRouter.component';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
 
+const store = ConfigureStore();
 const user = { role: '' };
 
 const App: FunctionComponent = () => {
-  //TODO: Provide a switch statement for different roles
   const RoleBasedRouter =
     user.role === 'manager'
       ? ManagerRouter
@@ -25,10 +27,12 @@ const App: FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Navbar isAuthenticated={!!user} />
-        <RoleBasedRouter />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navbar isAuthenticated={!!user} />
+          <RoleBasedRouter />
+        </BrowserRouter>
+      </Provider>
     </ThemeProvider>
   );
 };
