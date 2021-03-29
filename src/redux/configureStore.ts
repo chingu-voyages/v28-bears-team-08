@@ -4,7 +4,7 @@ import { authReducer } from './authReducer';
 import { appStatusReducer } from './appStatusReducer';
 export const ConfigureStore = () => {
   const store = createStore(
-    combineReducers({ app: appStatusReducer, user: authReducer }),
+    combineReducers({ applications: appStatusReducer, user: authReducer }),
     applyMiddleware(thunk)
   );
   return store;

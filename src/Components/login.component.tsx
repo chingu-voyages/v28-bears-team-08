@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 const Login: FunctionComponent = () => {
   return (
     <>
-      <h2>This is login component</h2>
+      <h2>This is login component. Just use local state. jwt logic to come</h2>
     </>
   );
 };

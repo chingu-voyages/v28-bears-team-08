@@ -30,3 +30,4 @@ export const appStatusReducer = (
       return state;
   }
 };
+//Q: isInternal?

@@ -33,6 +33,7 @@ export const updateAppStatus = ({
     });
   }
 };
+//isInternal: instead of using two actions for updating internal state and external state, isInternal:true is used to signify internalAppStatus
 
 export interface AuthCredentials {
   email: string;

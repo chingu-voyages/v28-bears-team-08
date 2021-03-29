@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../login.component';
 import Register from '../register.component';
 import SappList from '../sappList.component';
-import AppDetails from '../appDetails.component';
+import RenderAppWithId from '../renderAppWithId.component';
 
 export interface ManagerRouterProps {}
 
@@ -17,7 +17,7 @@ const ManagerRouter: FunctionComponent = () => {
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/sapplist" component={SappList} />
-      <Route exact path="/sapplist/:id" component={AppDetails} />
+      <Route exact path="/sapplist/:id" component={RenderAppWithId} />
     </Switch>
   );
 };

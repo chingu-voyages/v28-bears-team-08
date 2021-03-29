@@ -3,7 +3,7 @@ export const initialState: AppState = {
     email: 'a123@gmail.com',
     firstName: 'Aaron',
     lastName: 'Alpha',
-    role: 'applicant',
+    role: 'staff',
     id: 'a123',
   },
   //password is not on FE, only stored in DB
@@ -23,7 +23,6 @@ export const initialState: AppState = {
         dateOfBirth: '1997-02-28',
         tin: '111-11-1111',
         gender: 'M',
-        race: 'White',
         ethnicity: 'Caucasian',
         education: 'College',
         income: {
@@ -74,7 +73,6 @@ export interface Application {
     dateOfBirth: string;
     tin: string;
     gender: 'M' | 'F' | 'NB';
-    race: string;
     ethnicity: string;
     education: string;
     income: {
